@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Arigato Sushi</title>
+        <link rel="stylesheet" href="global.css">
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="assets/favi.png"/>
+     <style>
+        .text-overlay {
+            background: linear-gradient(135deg, rgba(255, 183, 77, 0.85), rgba(223, 129, 101, 0.85));
+            padding: 20px 30px;
+            border-radius: 16px;
+            margin: 30px auto;
+            color: #000;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            max-width: 900px;
+        }
+          .discount-banner {
+            background-color: #e63946;
+            color: white;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 15px 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .discount-banner a {
+            color: #ffd166;
+            text-decoration: none;
+        }
+
+        .discount-banner a:hover {
+            text-decoration: underline;
+        }
+         
+        header {
+             background: linear-gradient(135deg, rgba(255, 183, 77, 0.85), rgb(251, 61, 3));
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: #1d3557;
+        }
+
+        header p {
+            margin-top: 8px;
+            font-size: 1rem;
+            color: #000;
+
+        }
+
+        .menu-container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        section h2 {
+            border-bottom: 3px solid #e63946;
+            text-align: center;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            color: #e63946;
+        }
+        .menu-item {
+            display: flex;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 15px;
+            align-items: flex-start;
+            gap: 12px; 
+        }
+        .menu-text small {
+            display: block;          
+            color: #ff4800;        
+            font-weight: 500;      
+            font-size: 0.9rem;       
+            margin: 4px 0;      
+        }
+        .menu-item img {
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            flex-shrink: 0; 
+        }
+
+        .menu-text {
+            flex: 1;       
+            min-width: 0;  
+        }
+
+        .menu-text h3,
+        .menu-text small,
+        .menu-text p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 6px 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal; 
+        }
+
+        @media (max-width: 600px) {
+            .menu-item {
+                flex-direction: row;  
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .menu-item img {
+                width: 120px;
+                height: 120px;
+            }
+            .menu-text {
+                flex: 1;
+                min-width: 0; /* prevents text from being squashed or overflowing */
+            }
+            .menu-text h3,
+            .menu-text small,
+            .menu-text p {
+                font-size: 0.9rem; 
+            }
+        }
+
+  
+        
+            /* Container styling */
+        #menu-links {
+            display: flex;
+            flex-wrap: wrap;             /* Wrap on desktop */
+            gap: 12px;
+            justify-content: center;
+            padding: 15px;
+            background-color: #fff;
+            border-bottom: 2px solid #ddd;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Individual link container */
+        .menu-link a {
+            display: inline-block;
+            text-decoration: none;
+            color: #333;
+            background-color: #f2f2f2;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            border: 1px solid transparent;
+        }
+
+        /* Hover effect */
+        .menu-link a:hover {
+            background-color: #333;
+            color: #fff;
+            border-color: #333;
+        }
+
+       
+        .menu-link a.active {
+            background-color: #ff6600;
+            color: #fff;
+            border-color: #ff6600;
+        }
+
+    
+        @media (max-width: 600px) {
+        #menu-links {
+            flex-wrap: wrap;      
+            overflow-x: auto;           
+            -webkit-overflow-scrolling: touch; 
+            padding: 10px;
+            gap: 10px;
+        }
+
+        .menu-link a {
+            flex: 0 0 auto;     
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+        
+        #menu-links::-webkit-scrollbar {
+            display: none;
+        }
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .back-to-top a {
+            display: inline-block;
+            background-color: #ff6600;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .back-to-top a:hover {
+            background-color: #e65c00;
+            transform: translateY(-2px);
+        }
+
+    </style>    
+    </head>
+    <body>
+    <nav>
+            <div class="logo-container">
+                <img src="assets/logo.png" alt="logo" class="logo">
+                <span class="logo-text">Arigato Sushi</span>
+            </div>
+
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="order.html">Order</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+           </ul>
+     </nav>
+        <section class="discount-banner">
+            Order by phone & get <strong>30% OFF</strong>!  
+            Call us at <a href="tel:07424962370">07424962370</a> today!
+       </section>
+        <script>
+            document.getElementById('menu-toggle').addEventListener('click', function() {
+                document.getElementById('nav-links').classList.toggle('active');
+            });
+        </script>
+         <header id="top">
+            <h1>🍣 Arigato Sushi Menu</h1>
+            <p>Freshly prepared with love – Available for collection.</p>
+            <p>At Arigato Sushi - 47C Abbott Rd Aberfeldy Village, London E14 0NA</p>
+        </header>
+      
+        <!-- Menu Links -->
+        <div id="menu-links">
+            <div class="menu-link"><a href="#sashimi">Sashimi</a></div>
+            <div class="menu-link"><a href="#nigiri">Nigiri</a></div>
+            <div class="menu-link"><a href="#maki">Maki</a></div>
+            <div class="menu-link"><a href="#supercrunchyroll">Super Crunchy Roll</a></div>
+            <div class="menu-link"><a href="#uramaki">Uramaki</a></div>
+            <div class="menu-link"><a href="#temaki">Temaki</a></div>
+            <div class="menu-link"><a href="#gyozatanpura">Gyoza & Tempura</a></div>
+            <div class="menu-link"><a href="#katsu">Katsu</a></div>
+            <div class="menu-link"><a href="#chefspeacial">Chef Special</a></div>
+            <div class="menu-link"><a href="#box">Boxes & Platters</a></div>
+            <div class="menu-link"><a href="#saladsandsides">Salads & Sides</a></div>
+            <div class="menu-link"><a href="#drinks">Drinks</a></div>
+        </div>
+        <div class="back-to-top">
+            <a href="#top">⬆ Back to Top</a>
+        </div>
+        <section class="text-overlay">
+            <h2 id="sashimi">SASHIMI</h2>
+            <div class="menu-item">
+                <img src="photos/1.salmonsashimi.jpeg" alt="Salmon Sashimi">
+                <div class="menu-text">
+                    <h3>1 — Salmon Sashimi (4pcs) — £7.50</h3>
+                    <p>Smooth, rich slices of fresh salmon—simple and satisfying.</p>
+                    <small>Allergens: Fish, Soya</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/2.Tunashas.jpeg" alt="Tuna Sashimi">
+                <div class="menu-text">
+                    <h3>2 — Tuna Sashimi (4pcs) — £6.95</h3>
+                    <p>Lean cuts of deep-red tuna, fresh and firm.</p>
+                    <small>Allergens: Fish, Soya</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/3.SearedSalmonSashimi.png" alt="Seared Salmon Sashimi">
+                <div class="menu-text">
+                    <h3>3 — Seared Salmon Sashimi (5pcs) — £7.95</h3>
+                    <p>Buttery torched salmon with smoky edges.</p>
+                    <small>Allergens: Fish, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/4.SearedTunaSashimi.jpeg" alt="Seared Tuna Sashimi">
+                <div class="menu-text">
+                    <h3>4 — Seared Tuna Sashimi (5pcs) — £9.95</h3>
+                    <p>Lightly flame-seared tuna, bold and silky.</p>
+                    <small>Allergens: Fish, Sesame, Soya</small>
+                </div>
+            </div>
+             <div class="menu-item">
+                <img src="photos/5.Mixsashimi.jpg" alt="Seared Tuna Sashimi">
+                <div class="menu-text">
+                    <h3>5 — Mix Sashimi (10pcs) — £15.95</h3>
+                    <p>Assorted cuts of salmon, tuna, prawn—pure variety.</p>
+                    <small>Allergens: Fish, Crustacean, Soya</small>
+                </div>
+            </div>
+             <h2 id="nigiri">NIGIRI</h2>
+            <div class="menu-item">
+                <img src="photos/6.SalmonNigiri.jpeg" alt="Salmon Nigiri">
+                <div class="menu-text">
+                    <h3>6 — Salmon Nigiri (2pcs) — £6.95</h3>
+                    <p>Classic and elegant—smooth salmon over vinegar rice.</p>
+                    <small>Allergens: Gluten, Fish, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/7.TunaNigiri.jpeg" alt="Tuna Nigiri">
+                <div class="menu-text">
+                    <h3>7 — Tuna Nigiri (2pcs) — £5.95</h3>
+                    <p>Deep-red tuna placed delicately atop rice.</p>
+                    <small>Allergens: Gluten, Fish, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/8.PrawnNigiri.jpeg" alt="Prawn Nigiri">
+                <div class="menu-text">
+                    <h3>8 — Prawn Nigiri (2pcs) — £5.95</h3>
+                    <p>Juicy prawn with light soy glaze.</p>
+                    <small>Allergens: Gluten, Crustacean, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/9.AvocadoNigiri.jpg" alt="Avocado Nigiri">
+                <div class="menu-text">
+                    <h3>9 — Avocado Nigiri (2pcs) — £4.90</h3>
+                    <p>Creamy avocado with sesame garnish</p>
+                    <small>Allergens: Gluten, Sesame, Soya</small>
+                </div>
+            </div>
+            <h2 id="maki">MAKI</h2>
+            <div class="menu-item">
+                <img src="photos/10.SalmonMaki.jpg" alt="Salmon Maki">
+                <div class="menu-text">
+                    <h3>10 — Salmon Maki (8pcs) — £6.95</h3>
+                    <p>Simple salmon roll with seaweed wrap.</p>
+                    <small>Allergens: Gluten, Fish, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/11.Tunamaki.jpeg" alt="Tuna Maki">
+                <div class="menu-text">
+                    <h3>11 — Tuna Maki (8pcs) — £6.95</h3>
+                    <p>Lean tuna wrapped in seasoned rice and nori</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+             <div class="menu-item">
+                <img src="photos/11.Tunamaki.jpeg " alt="Spicy tuna Maki">
+                <div class="menu-text">
+                    <h3>12 — Spicy Tuna Maki (8pcs) — £6.95</h3>
+                    <p>Tuna roll with a spicy mayo kick.</p>
+                    <small>Allergens:  Gluten, Fish, Soya </small>
+                </div>
+            </div>
+             <div class="menu-item">
+                <img src="photos/13.OmeletteMaki.jpeg" alt="Omelette  Maki">
+                <div class="menu-text">
+                    <h3>13 — Omelette Maki (8pcs) — £4.50</h3>
+                    <p>Sweet Japanese tam ago rolled tight.</p>
+                    <small>Allergens:  Gluten, Egg, Soya </small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/14.AvocadoMaki.jpg" alt="Avocado Maki">
+                <div class="menu-text">
+                    <h3>14 — Avocado Maki (8pcs) — £4.50</h3>
+                    <p>Fresh avocado slices wrapped in rice and seaweed.</p>
+                    <small>Allergens:  Gluten, Soya </small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/15.Cucumbersmaki.jpeg" alt="Avocado Maki">
+                <div class="menu-text">
+                    <h3>15 — Cucumber Maki (8pcs) — £4.50</h3>
+                    <p>Crunchy cucumber with sesame hint.</p>
+                    <small>Allergens:  Gluten, Soya </small>
+                </div>
+            </div>
+            <h2 id="supercrunchyroll">SUPER CRUNCHY ROLL</h2>
+            <div class="menu-item">
+                <img src="photos/16.Supercrunchysalmonrol.jpeg" alt="Crunchy Salmon Roll">
+                <div class="menu-text">
+                    <h3>16 — Crunchy Salmon Roll (8pcs) — £12.95</h3>
+                    <p>Salmon roll with crispy tempura flakes.</p>
+                    <small>Allergens: Gluten, Fish, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/17.supercrunchyprawnsroll.jpeg" alt="Crunchy Prawn Roll">
+                <div class="menu-text">
+                    <h3>17 — Crunchy Prawn Roll (8pcs) — £11.95</h3>
+                    <p>Prawn tempura roll with sweet soy drizzle.</p>
+                    <small>Allergens: Gluten, Crustacean, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/18.Chickensupercrunchy.jpeg" alt="Crunchy Chicken Roll">
+                <div class="menu-text">
+                    <h3>18 — Crunchy Chicken Roll (8pcs) — £11.95</h3>
+                    <p>Chicken tempura, creamy mayo, crispy topping.</p>
+                    <small>Allergens: Gluten, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/19.Supercrunchyvegetablesroll.jpeg" alt="Crunchy Vegetable Roll">
+                <div class="menu-text">
+                    <h3>19 — Crunchy Vegetable Roll (8pcs) — £10.95</h3>
+                    <p>Avocado, cucumber, carrots, and crunchy flakes.</p>
+                    <small>Allergens: Gluten, Soya</small>
+                </div>
+            </div>
+            <h2 id="uramaki">URAMAKI ROLL</h2>
+            <div class="menu-item">
+                <img src="photos/20.salmonUramak.jpeg" alt="Salmon Uramaki Roll">
+                <div class="menu-text">
+                    <h3>20 — Salmon Uramaki Roll (8pcs) — £9.50</h3>
+                    <p>Inside-out salmon roll with sesame topping.</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/21.callroll.jpg" alt="California Roll">
+                <div class="menu-text">
+                    <h3>21 — California Roll (8pcs) — £9.95</h3>
+                    <p>Crabstick, avo, mayo in a vibrant roll.</p>
+                    <small>Allergens: Gluten, Fish, Egg, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/22.SpicyTunauramakiroll.JPG" alt="Spicy Tuna Roll">
+                <div class="menu-text">
+                    <h3>22 — Spicy Tuna Roll (8pcs) — £9.95</h3>
+                    <p>Tuna with a chilli bite and spicy mayo.</p>
+                    <small>Allergens: Gluten, Fish, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/23.TunaRoll.jpeg" alt="Tuna Roll">
+                <div class="menu-text">
+                    <h3>23 — Tuna Roll (8pcs) — £9.95</h3>
+                    <p>Classic tuna with avo and rice.</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/24.prawnUramakiroll.jpeg" alt="Prawn Roll">
+                <div class="menu-text">
+                    <h3>24 — Prawn Roll (8pcs) — £10.50</h3>
+                    <p>Prawn with creamy drizzle and sesame seeds.</p>
+                    <small>Allergens: Gluten, Crustacean, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/25.chickenuramakiroll.jpeg" alt="Chicken Roll">
+                <div class="menu-text">
+                    <h3>25 — Chicken Roll (8pcs) — £10.95</h3>
+                    <p>Juicy chicken with light teriyaki touch.</p>
+                    <small>Allergens: Gluten, Egg, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/26.VeganRoll.jpeg" alt="Vegetable Roll">
+                <div class="menu-text">
+                    <h3>26 — Vegetable Roll (8pcs) — £7.95</h3>
+                    <p>Crunchy veg wrapped with care.</p>
+                    <small>Allergens: Gluten, Sesame, Soya</small>
+                </div>
+            </div>
+            <h2 id="temaki">TEMAKI HAND ROLL</h2>
+            <div class="menu-item">
+                <img src="photos/27.salmonTemaki.jpeg" alt="Salmon Temaki">
+                <div class="menu-text">
+                    <h3>27 — Salmon Temaki — £6.95</h3>
+                    <p>Cone-shaped roll with rich salmon.</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/28.TunaTemaki.jpeg" alt="Tuna Temaki">
+                <div class="menu-text">
+                    <h3>28 — Tuna Temaki — £6.95</h3>
+                    <p>Hand roll with tuna and crisp veg.</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/29.SpicyTunaTemaki.jpeg" alt="Spicy Tuna Temaki">
+                <div class="menu-text">
+                    <h3>29 — Spicy Tuna Temaki — £6.95</h3>
+                    <p>Tuna, chilli, and crunchy bits.</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/30.PrawnTemaki.jpeg" alt="Prawn Temaki">
+                <div class="menu-text">
+                    <h3>30 — Prawn Temaki — £6.95</h3>
+                    <p>Prawn and creamy sauce in a seaweed cone.</p>
+                    <small>Allergens: Gluten, Crustacean, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/31.crabtemaki.jpg" alt="Crabstick Temaki">
+                <div class="menu-text">
+                    <h3>31 — Crabstick Temaki — £8.95</h3>
+                    <p>Crab, avocado, and mayo, hand rolled.</p>
+                    <small>Allergens: Gluten, Fish, Egg, Sesame, Soya</small>
+                </div>
+            </div>
+            <h2 id="gyozatanpura">GYOZA & TEMPURA</h2>
+            <div class="menu-item">
+                <img src="photos/gyoza.png" alt="Duck Gyoza">
+                <div class="menu-text">
+                    <h3>32 — Duck Gyoza (5pcs) — £7.95</h3>
+                    <p>Pan-fried dumplings filled with seasoned duck.</p>
+                    <small>Allergens: Gluten, Egg, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/gyoza.png" alt="Chicken Gyoza">
+                <div class="menu-text">
+                    <h3>33 — Chicken Gyoza (5pcs) — £7.95</h3>
+                    <p>Golden fried parcels with juicy chicken filling.</p>
+                    <small>Allergens: Gluten, Egg, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/gyoza.png" alt="Prawn Gyoza">
+                <div class="menu-text">
+                    <h3>34 — Prawn Gyoza (5pcs) — £7.95</h3>
+                    <p>Crispy dumplings with succulent prawn mix.</p>
+                    <small>Allergens: Gluten, Crustacean, Egg, Fish, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/gyoza.png" alt="Vegetable Gyoza">
+                <div class="menu-text">
+                    <h3>35 — Vegetable Gyoza (5pcs) — £6.95</h3>
+                    <p>Mixed vegetable dumplings with soy seasoning.</p>
+                    <small>Allergens: Gluten, Sesame, Soya</small>
+                </div>
+            </div>
+            <h2 id="katsu">KATSU</h2>
+            <div class="menu-item">
+                <img src="photos/36.Chickenkatsucurry.jpeg" alt="Chicken Katsu Curry">
+                <div class="menu-text">
+                    <h3>36 — Chicken Katsu Curry — £13.95</h3>
+                    <p>Golden katsu on rice with mild Japanese curry.</p>
+                    <small>Allergens: Gluten, Egg, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/37.PrawnkatsuCurry.jpeg" alt="Prawn Katsu Curry">
+                <div class="menu-text">
+                    <h3>37 — Prawn Katsu Curry — £14.50</h3>
+                    <p>Crispy prawn cutlets over rice with curry sauce.</p>
+                    <small>Allergens: Gluten, Crustacean, Egg, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/38.Tofukatsucurry.jpg" alt="Tofu Katsu Curry">
+                <div class="menu-text">
+                    <h3>38 — Tofu Katsu Curry — £11.95</h3>
+                    <p>Breaded tofu with savoury Japanese curry.</p>
+                    <small>Allergens: Gluten, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/39.Vegetablekatsucurry.jpg" alt="Vegetable Katsu Curry">
+                <div class="menu-text">
+                    <h3>39 — Vegetable Katsu Curry — £10.95</h3>
+                    <p>Mixed veggies in crispy coating with curry on rice.</p>
+                    <small>Allergens: Gluten, Sesame, Soya</small>
+                </div>
+            </div>
+            <h2 id="chefspeacial">CHEF’S SPECIALS</h2>
+            <div class="menu-item">
+                <img src="photos/40.AragitoKitchen.jpg" alt="Arigato’s Hell’s Kitchen Chef Special">
+                <div class="menu-text">
+                    <h3>40 — Arigato’s Hell’s Kitchen Chef Special (8pcs) — £14.95</h3>
+                    <p>Spicy crunch with seafood and chilli kick.</p>
+                    <small>Allergens: Gluten, Crustacean, Egg, Fish, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/41.ArigatosSubwayChefSpecial.jpg" alt="Arigato’s Subway Chef Special">
+                <div class="menu-text">
+                    <h3>41 — Arigato’s Subway Chef Special (8pcs) — £14.95</h3>
+                    <p>Signature combo of crab, prawn, and creamy heat.</p>
+                    <small>Allergens: Gluten, Crustacean, Egg, Fish, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/42.PrawnPanco.jpg" alt="Prawn Panko Roll">
+                <div class="menu-text">
+                    <h3>42 — Prawn Panko Roll (8pcs) — £15.95</h3>
+                    <p>Panko-coated prawn with savoury sauce.</p>
+                    <small>Allergens: Gluten, Crustacean, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/43.DragonRollChefSpecial.jpg" alt="Dragon Roll">
+                <div class="menu-text">
+                    <h3>43 — Dragon Roll (8pcs) — £14.95</h3>
+                    <p>Prawn and avocado with spicy glaze.</p>
+                    <small>Allergens: Gluten, Fish, Crustacean, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/44.Volcano.jpg" alt="Volcano Maki">
+                <div class="menu-text">
+                    <h3>44 — Volcano Maki (8pcs) — £14.95</h3>
+                    <p>Baked California roll topped with tuna, salmon, and chilli mayo.</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/45.LondonLondon.jpg" alt="London London">
+                <div class="menu-text">
+                    <h3>45 — London London (8pcs) — £14.95</h3>
+                    <p>California rolls with prawn tempura topped with white mayo sauce, uramaki style.</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/46.Pinkladymaki.jpg" alt="Pink Lady Maki">
+                <div class="menu-text">
+                    <h3>46 — Pink Lady Maki (8pcs) — £14.95</h3>
+                    <p>Grilled salmon on top of California roll with citrus sauce & salmon roe.</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="photos/47.Duckpepperrolls.jpg" alt="Duck Pepper Roll Chef Special">
+                <div class="menu-text">
+                    <h3>47 — Duck Pepper Roll Chef Special (8pcs) — £14.95</h3>
+                    <p>Roasted duck with avocado, coriander, cucumber, and red onion with dressing.</p>
+                    <small>Allergens: Gluten, Sesame, Soya</small>
+                </div>
+            </div>
+
+            <h2 id="box">BOXES & PLATTERS</h2>
+            <div class="menu-item">
+                <img src="photos/48.Salmonselections.jpeg" alt="Salmon Selection Box">
+                <div class="menu-text">
+                    <h3>48 — Salmon Selection Box — £19.95</h3>
+                    <p>4 pcs salmon rolls with fresh cream, 8 pcs salmon maki, 3 salmon nut, 2 pcs sashimi with wasabi, ginger, soy sauce</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/49.SalmonLoversbox.jpeg" alt="Salmon Lovers Box">
+                <div class="menu-text">
+                    <h3>49 — Salmon Lovers Box — £19.50</h3>
+                    <p>8 pcs salmon maki, 4 pcs salmon nigiri with wasabi inside salmon, also with more wasabi on the side, ginger, soy sauce</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/50.Nigirimixbox.jpeg" alt="Nigiri Box">
+                <div class="menu-text">
+                    <h3>50 — Nigiri Box — £18.50</h3>
+                    <p>5 salmon nigiri, 2 prawn nigiri, 3 tuna nigiri, with wasabi on the side, ginger, soy sauce</p>
+                    <small>Allergens: Gluten, Fish, Crustacean, Sesame, Soya</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/51.mixmakibox.jpeg" alt="Mix Maki Box">
+                <div class="menu-text">
+                    <h3>51 — Mix Maki Box — £18.50</h3>
+                    <p>8 pcs salmon maki, 8 pcs tuna maki, 8 pcs avocado maki, 8 pcs cucumber maki, with ginger, wasabi, soy sauce</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/52.OmegaBox.jpg" alt="Omega Box">
+                <div class="menu-text">
+                    <h3>52 — Omega Box — £18.50</h3>
+                    <p>8 pcs salmon roll with fresh cream, 8 pcs salmon maki, 8 pcs avocado maki, with ginger, wasabi, soy sauce</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/53.Veganbox.jpeg" alt="Vegan Box">
+                <div class="menu-text">
+                    <h3>53 — Vegan Box — £17.50</h3>
+                    <p>8 pcs vegan roll, 8 pcs avocado maki, 8 pcs cucumber maki, 2 pcs avocado nigiri, with ginger, wasabi, soy sauce</p>
+                    <small>Allergens: Gluten, Sesame, Soya</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/54.Deluxebox.jpeg" alt="Deluxe Box">
+                <div class="menu-text">
+                    <h3>54 — Deluxe Box — £19.95</h3>
+                    <p>8 pcs salmon roll with fresh cream, 2 pcs salmon nigiri, 2 pcs tuna nigiri, 2 pcs salmon sashimi, with ginger, wasabi, soy sauce</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/55.Tunabox.jpeg" alt="Tuna Box">
+                <div class="menu-text">
+                    <h3>55 — Tuna Box — £22.50</h3>
+                    <p>8 pcs tuna, 8 pcs tuna maki, 4 pcs tuna nigiri with wasabi inside, ginger, wasabi, soy sauce</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/56.AVplatter.jpeg" alt="Aberfeldy Village Platter">
+                <div class="menu-text">
+                    <h3>56 — Aberfeldy Village Platter — £39.95</h3>
+                    <p>8 pcs salmon rolls with fresh cream, 8 pcs crab stick rolls with wasabi & vegan mayonnaise, 8 pcs salmon nigiri with wasabi, 4 pcs salmon sashimi with wasabi, with ginger, wasabi, soy sauce</p>
+                    <small>Allergens: Gluten, Fish, Crustacean, Sesame, Soya</small>
+                </div>
+            </div>
+            <h2 id="saladsandsides">SALADS & SIDES</h2>
+            <div class="menu-item">
+                <img src="photos/57.JungleFishSalad.jpeg" alt="Jungle Fish Salad">
+                <div class="menu-text">
+                    <h3>57 — Jungle Fish Salad — £14.95</h3>
+                    <p>Rice bowl with seared salmon, tuna, prawn, mixed vegetables, and sauces.</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/58.SalmonPoke.jpeg" alt="Salmon Poke">
+                <div class="menu-text">
+                    <h3>58 — Salmon Poke — £14.95</h3>
+                    <p>Rice bowl with salmon, vegetables, and sauces.</p>
+                    <small>Allergens: Gluten, Fish, Sesame, Soya (Spicy)</small>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="photos/59.edeml.jpg" alt="Edamame">
+                <div class="menu-text">
+                    <h3>59 — Edamame — £3.95</h3>
+                    <p>Steamed soybeans with salt.</p>
+                    <small>Allergens: Soya</small>
+                </div>
+            </div>
+
+        <h2 id="drinks">DRINKS</h2>
+        <div class="menu-item">
+            <img src="photos/60.jpg" alt="Pepsi diet">
+            <div class="menu-text">
+                <h3>60 — Pepsi Diet (330ml)</h3>
+                <p>£2.00</p>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="photos/61.jpg" alt="Pepsi ">
+            <div class="menu-text">
+                <h3>61 — Pepsi (330ml)</h3>
+                <p>£2.00</p>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="photos/62.jpg" alt="7 Up">
+            <div class="menu-text">
+                <h3>62 — 7 Up (330ml)</h3>
+                <p>£2.00</p>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="photos/63.jpg" alt="Mirinda Orange">
+            <div class="menu-text">
+                <h3>63 — Mirinda Orange (330ml)</h3>
+                <p>£2.00</p>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="photos/64.jpg" alt="Mirinda Strawberry">
+            <div class="menu-text">
+                <h3>64 — Mirinda Strawberry (330ml)</h3>
+                <p>£2.00</p>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="photos/65.jpg" alt="Red Bull">
+            <div class="menu-text">
+                <h3>65 — Red Bull (200ml)</h3>
+                <p>£3.50</p>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="photos/66.jpg" alt="Barr Cola">
+            <div class="menu-text">
+                <h3>66 — Barr Cola (330ml)</h3>
+                <p>£2.00</p>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="photos/67.jpg" alt="Capri Sun">
+            <div class="menu-text">
+                <h3>67 — Capri Sun (200ml)</h3>
+                <p>£2.00</p>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="photos/68.jpg" alt="Still Water">
+            <div class="menu-text">
+                <h3>68 — Still Water (500ml)</h3>
+                <p>£2.00</p>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="photos/69.jpg" alt="Pepsi Bottle 1.5L">
+            <div class="menu-text">
+                <h3>69 — Pepsi Bottle 1.5L</h3>
+                <p>£4.95</p>
+            </div>
+        </div>
+
+      
+
+    </section>
+
+    
+     <footer class="footer">
+                <div class="footer-content">
+                     <div class="footer-section logo-section">
+                        <img src="assets/logo.png" alt="Arigato Sushi Logo" class="footer-logo" />
+                        <p>Arigato Sushi</p>
+                     </div>
+                    
+                    <div class="footer-section contact-info">
+                        <h3>Contact Us</h3>
+                        <p>Email: <a href="mailto:info.arigatosushi@yahoo.com">info.arigatosushi@yahoo.com</a></p>
+                        <p>Phone: 07424962370</p>
+                        <p>47C Abbott Rd, Aberfeldy Village, London E14 0NA</p>
+                    </div>
+
+                    <div class="footer-section social-media">
+                        <h3>Follow Us</h3>
+                        <p>
+                            <a href="#" class="social-link">Instagram</a>
+                            <a href="#" class="social-link">Facebook</a>
+                            <a href="#" class="social-link">Twitter</a>
+                        </p>
+                    </div>
+
+                    <div class="footer-section info-offers">
+                        <h3>Info & Offers</h3>
+                        <p><a href="assets/allergens.pdf" target="_blank">Allergen Information (PDF)</a></p>
+                        <p>Use code <strong>ARIGATO30</strong> for 30% off your first order! give us a call to order and receive your 30% discount</p>
+                    </div>
+                    
+                </div>
+                <p class="footer-copy">&copy; 2025 Arigato Sushi. All rights reserved.</p>
+        </footer>
+
+    </body>
+</html>
